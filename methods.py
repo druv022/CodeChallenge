@@ -258,16 +258,20 @@ def parse_arguments(argv):
 
 
 if __name__ == "__main__":    
-    filepath = '/media/druv022/Data2/Challenge/data/job_descriptions.json/all_en_descriptions.json'
-    # filepath = '/media/druv022/Data2/Challenge/data/job_descriptions.json/Temp.json'
-    modelpath = '/media/druv022/Data2/Challenge/models/fasttext_model.bin'
-    t = 'skill'
-    name = 'ASP.NET'
-    # name = 'Software Developer'
-    neighbor = 'skill'
-    n = '5'
-    graphpath = '/media/druv022/Data2/Challenge/data/graph_temp.pkl'
+    # filepath = '/media/druv022/Data2/Challenge/data/job_descriptions.json/all_en_descriptions.json'
+    # # filepath = '/media/druv022/Data2/Challenge/data/job_descriptions.json/Temp.json'
+    # modelpath = '/media/druv022/Data2/Challenge/models/fasttext_model.bin'
+    # t = 'skill'
+    # name = 'ASP.NET'
+    # # name = 'Software Developer'
+    # neighbor = 'title'
+    # n = '5'
+    # graphpath = '/media/druv022/Data2/Challenge/data/graph_temp.pkl'
 
-    sys.argv += ['--train','--filepath', filepath, '--modelpath', modelpath, '--t' , t, '--name', name, '--neighbor', neighbor,'--n',n, '--graphpath', graphpath]
+    # sys.argv += ['--filepath', filepath, '--modelpath', modelpath, '--t' , t, '--name', name, '--neighbor', neighbor,'--n',n, '--graphpath', graphpath]
 
+    # SAMPLE FOR COMMAND LINE:
+    # python methods.py --filepath /media/druv022/Data2/Challenge/data/job_descriptions.json/all_en_descriptions.json --modelpath /media/druv022/Data2/Challenge/models/fasttext_model.bin --t skill --name ASP.NET --neighbor title --n 5 --graphpath /media/druv022/Data2/Challenge/data/graph_temp.pkl 
+    
     main(parse_arguments(sys.argv[1:]))
+
