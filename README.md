@@ -14,7 +14,7 @@ This is a reposiory for a code challenge.
                         
 2) Identify Named Entity and keep only a set of entities by this rule:
                             
-a) Select only if belonging to a predefined set.(predefined set selected based on visual inspection.)
+        a) Select only if belonging to a predefined set.(predefined set selected based on visual inspection.)
                             
         b) If single word, its POS be NOUN or its other form
         c) if multiword, atleast one word must be a NOUN or other forms
