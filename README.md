@@ -45,3 +45,22 @@ This is a reposiory for a code challenge.
 To execute
 
     python methods.py --filepath XXX/Challenge/data/job_descriptions.json/all_en_descriptions.json --modelpath XXX/Challenge/models/fasttext_model.bin --t skill --name ASP.NET --neighbor title --n 5 --graphpath /media/druv022/Data2/Challenge/data/graph_temp.pkl
+
+***
+#### Pros:
+
+    a) Simple yet effective.
+    b) Can use any pre-trained embedding (supported in the form of [KeyedVectors](https://radimrehurek.com/gensim/models/keyedvectors.html))
+    
+#### Cons:
+
+    a) require speedup (dependency on spacy execution on CPU)
+    b) quality of data; requires better preprocessing
+    c) doesn't handle titles/skills that it has not seen; requires character based approach to start with.
+    
+#### Future ideas:
+
+    a) Use latest NER models (with ELMO/BERT embeddings)
+    b) Use graph based embeddings (node2vec for a start)
+    c) Learn weights of the edges based on the data rather than using predefined heuristics
+    x) XXXX
