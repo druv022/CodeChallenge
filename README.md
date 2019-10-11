@@ -34,7 +34,7 @@ This is a reposiory for a code challenge.
 
 8) Add the title as a node to a Graph
                 
-9) Add the sorted skills identified in step 5 as nodes.
+9) Add the sorted skills identified in step 6 as nodes.
                 
 10) Join edges between title and edges based on step 7
                 
