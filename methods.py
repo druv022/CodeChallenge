@@ -28,14 +28,14 @@ class Filter():
                             b) If single word, its POS be NOUN or its other form
                             c) if multiword, atleast one word must be a NOUN or other forms
                         3) Keep a counter of all the neighboring words using word embedding similarity of selected candidates of step 2
-                        4) Select top k most frequent neighboring words signifying the common concept within the text (or found entity)
+                        4) Select top m most frequent neighboring words signifying the common concept within the text (or found entity)
                         5) Evaluate a similarity score between all the top k most frequent words of step 5 and candidate entity based on following:
                             a) if single word, directly evaluate the similarity with top k and add them
                             b) if multiword, evaluate similarity for each word with top k and add them followed by division by number of words in the candidate word.
-                        6) Sort the candidate list of step 2 based on score of step 5.
+                        6) Sort the candidate list of step 2 based on score of step 5 and select top k.
                         7) Associate a weight to each node based on predefined set(visual inspection)
     """
-    def __init__(self, emb_model):
+    def __init__(self, emb_model, topk=10):
         self._model = emb_model
         self._desc = None
         self._doc = None
@@ -44,12 +44,15 @@ class Filter():
         self._weight = []
         self._scale = [0.8, 0.7,0.7, 0.7, 0.7, 0.6, 0.6, 0.5, 0.3]
         self._NER_labels = ['PRODUCT','PERSON', 'ORG', 'NORP', 'LANGUAGE', 'GPE', 'FAC','WORK_OF_ART','EVENT']
+        self.topk = topk
+
 
     def reset(self, doc):
         self._desc = None
         self._doc = nlp(doc)
         self._candidates = None
         self._weight = []
+        self._counter = Counter()
 
     def __filter_POS(self):
         """ Filter only noun
@@ -81,23 +84,23 @@ class Filter():
         return candidates
 
     def __eval_neighbor(self):
-        """ Evaluate top k most similar neighboring words and store it counter
+        """ Evaluate top m(2topk if topk < 10 else topk) most similar neighboring words and store it counter
         """
         for item in self._candidates:
             if len(item.split()) > 1:
                 for word in item.split():
                     try:
-                        self._counter.update(self._model.most_similar(word.lower(), topn=30))
+                        self._counter.update(self._model.most_similar(word.lower(), topn= self.topk*2 if self.topk < 10 else self.topk))
                     except:
                         pass
             else:
                 try:
-                    self._counter.update(self._model.most_similar(item.lower(), topn=30))
+                    self._counter.update(self._model.most_similar(item.lower(), topn=self.topk*2 if self.topk < 10 else self.topk))
                 except:
                     pass
 
     def __eval_similar(self):
-        """Sort the candidate list based on similarity score between top count of most similar neighboring words and candidates
+        """Sort the candidate list based on similarity score between top count of most similar neighboring words and candidates and return topk
         """
         top_words = self._counter.most_common(10)
         score = []
@@ -118,7 +121,10 @@ class Filter():
                     pass
 
         sorted_candidates = [(x,y) for x,y,_ in sorted(zip(self._candidates, self._weight, score), key=lambda items: items[2], reverse=True)]
-        self._candidates = sorted_candidates
+        if self.topk < len(sorted_candidates):
+            self._candidates = sorted_candidates[0:self.topk]
+        else:
+            self._candidates = sorted_candidates
 
     def process(self, text: str) -> list:
         """ Excute the huristics one by one 
