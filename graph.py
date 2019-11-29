@@ -3,7 +3,7 @@ import pickle
 
 class Graph():
     """Class used for building graph using networkx.
-        Its usage assumption is every alternate node will be of same type/class
+        Assumption: Bipartile graph
     """
 
     def __init__(self):
