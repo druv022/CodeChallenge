@@ -66,4 +66,5 @@ To execute
     a) Use latest NER models (with ELMO/BERT embeddings)
     b) Use graph based embeddings (node2vec for a start)
     c) Learn weights of the edges based on the data rather than using predefined heuristics
-    x) XXXX
+
+As part of the coding challenge, another task was asked to write a proposal for a web crawler for job. Please find the proposal here: [link](Proposal.pdf)
