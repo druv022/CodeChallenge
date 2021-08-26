@@ -1,6 +1,9 @@
-# CODE CHALLENGE
+# Job Skill Matcher: (CODE CHALLENGE)
 
-This is a reposiory for a code challenge.
+This is a reposiory for a code challenge. The task to address are as follows:
+
+1) Given a skill return a list of related job titles
+2) Given a skill return a list of related skills
 
 ### Assumptions:    
 1) Skills are mostly NOUN or forms of NOUN.
